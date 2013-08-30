@@ -1674,13 +1674,14 @@
 
     <!-- Совместимый со списком шаблон элемента высотой 130 пикселей, как на странице SplitPage -->
     <DataTemplate x:Key="Standard130ItemTemplate">
-        <Grid Height="110" Margin="6">
+        <Border Height="110" Margin="6" Width="400" BorderThickness="2" BorderBrush="Gray">
+        <Grid Height="100" Margin="5" Width="390">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-                <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+            <Border Background="Transparent" Width="110" Height="110">
+                <Image Source="{Binding Image}" Width="110" Height="110" AutomationProperties.Name="{Binding Title}"/>
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
                 <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
@@ -1688,6 +1689,7 @@
                 <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
             </StackPanel>
         </Grid>
+        </Border>
     </DataTemplate>
 
     <!--

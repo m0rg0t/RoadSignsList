@@ -5,6 +5,7 @@
              xmlns:local="using:RoadSignsList" xmlns:localData="using:RoadSignsList.Data" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             RequestedTheme="Light"
              xmlns:vm="using:RoadSignsList.ViewModel" mc:Ignorable="d">
 
     <Application.Resources>
