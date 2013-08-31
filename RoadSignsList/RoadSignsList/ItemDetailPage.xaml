@@ -65,18 +65,26 @@
                         <ScrollViewer x:Name="scrollViewer" Style="{StaticResource HorizontalScrollViewerStyle}" Grid.Row="1">
 
                             <!-- Содержимое может занимать столько столбцов, сколько потребуется -->
-                            <common:RichTextColumns x:Name="richTextColumns" Margin="117,0,117,47">
-                                <RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False">
+                            <common:RichTextColumns x:Name="richTextColumns" Margin="117,40,117,47" VerticalAlignment="Top">
+                                <RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False" VerticalAlignment="Top">
                                     <Paragraph>
-                                        <Run FontSize="26.667" FontWeight="Light" Text="{Binding Title}"/>
+                                        <Run FontSize="36" FontWeight="Light" Text="{Binding Title}"/>
+                                        <LineBreak/>
+                                        <LineBreak/>
+                                        <Run FontSize="26.667" FontWeight="Light" Text="{Binding Description}"/>
                                         <LineBreak/>
                                         <LineBreak/>
                                         <Run FontWeight="Normal" Text="{Binding Subtitle}"/>
                                     </Paragraph>
                                     <Paragraph LineStackingStrategy="MaxHeight">
                                         <InlineUIContainer>
-                                            <Image x:Name="image" MaxHeight="480" Margin="0,20,0,10" Stretch="Uniform" Source="{Binding Image}" AutomationProperties.Name="{Binding Title}"/>
+                                            <Image x:Name="image" MaxHeight="480" Margin="0" Source="{Binding Image}" 
+                                                   Width="110"
+                                                   AutomationProperties.Name="{Binding Title}"/>
                                         </InlineUIContainer>
+                                    </Paragraph>
+                                    <Paragraph>
+                                        
                                     </Paragraph>
                                     <Paragraph>
                                         <Run FontWeight="SemiLight" Text="{Binding Content}"/>

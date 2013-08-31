@@ -1656,13 +1656,14 @@
 
     <!-- Совместимый с сеткой шаблон элемента 500 на 130 пикселей, как на странице GroupDetailPage -->
     <DataTemplate x:Key="Standard500x130ItemTemplate">
-        <Grid Height="110" Width="480" Margin="10">
+        <Border Height="110" Width="480" BorderBrush="Gray" BorderThickness="2">
+        <Grid Height="90" Width="460" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-                <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+            <Border Background="Transparent" Width="110" Height="110">
+                <Image Source="{Binding Image}" Stretch="None" AutomationProperties.Name="{Binding Title}"/>
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
                 <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
@@ -1670,6 +1671,7 @@
                 <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
             </StackPanel>
         </Grid>
+        </Border>
     </DataTemplate>
 
     <!-- Совместимый со списком шаблон элемента высотой 130 пикселей, как на странице SplitPage -->
@@ -1703,7 +1705,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="60" Height="60">
-                <Image Source="{Binding Image}" Stretch="UniformToFill"/>
+                <Image Source="{Binding Image}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
             <StackPanel Grid.Column="1" Margin="10,0,0,0">
                 <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
@@ -1714,6 +1716,7 @@
 
     <!-- Совместимый с сеткой шаблон элемента 300 на 70 пикселей, как на странице SearchResultsPage -->
     <DataTemplate x:Key="StandardSmallIcon300x70ItemTemplate">
+        <Border BorderBrush="Gray" BorderThickness="2">
         <Grid Width="294" Margin="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -1724,10 +1727,10 @@
             </Border>
             <StackPanel Grid.Column="1" Margin="10,-10,0,0">
                 <TextBlock Text="{Binding Title}" Style="{StaticResource BodyTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
                 <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
             </StackPanel>
-        </Grid>
+            </Grid>
+        </Border>
     </DataTemplate>
 
     <!-- Совместимый со списком шаблон элемента высотой 70 пикселей, как на странице SearchResultsPage в режиме с прикреплением -->
@@ -1742,7 +1745,6 @@
             </Border>
             <StackPanel Grid.Column="1" Margin="10,-10,0,0">
                 <TextBlock Text="{Binding Title}" Style="{StaticResource BodyTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
                 <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
             </StackPanel>
         </Grid>
@@ -1763,7 +1765,7 @@
                     VerticalAlignment="Center"
                     Stretch="Uniform"/>
             </Grid>
-            <ToolTipService.Placement>Мышь</ToolTipService.Placement>
+            <ToolTipService.Placement>Mouse</ToolTipService.Placement>
             <ToolTipService.ToolTip>
                 <ToolTip>
                     <ToolTip.Style>

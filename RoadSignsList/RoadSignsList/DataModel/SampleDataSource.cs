@@ -226,7 +226,7 @@ namespace RoadSignsList.Data
     /// </summary>
     public sealed class SampleDataSource
     {
-        private static SampleDataSource _sampleDataSource = new SampleDataSource();
+        public static SampleDataSource _sampleDataSource = new SampleDataSource();
 
         private ObservableCollection<SampleDataGroup> _allGroups = new ObservableCollection<SampleDataGroup>();
         public ObservableCollection<SampleDataGroup> AllGroups

@@ -1,11 +1,13 @@
-﻿using RoadSignsList.Data;
-
+﻿using Callisto.Controls;
+using RoadSignsList.Controls;
+using RoadSignsList.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -57,6 +59,47 @@ namespace RoadSignsList
             // Переход к соответствующей странице назначения и настройка новой страницы
             // путем передачи необходимой информации в виде параметра навигации
             this.Frame.Navigate(typeof(GroupDetailPage), ((SampleDataGroup)group).UniqueId);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            SettingsPane.GetForCurrentView().CommandsRequested -= Settings_CommandsRequested;
+            base.OnNavigatedFrom(e);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
+            base.OnNavigatedTo(e);
+        }
+
+        void Settings_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+        {
+            try
+            {
+                var viewAboutPage = new SettingsCommand("", "Об авторе", cmd =>
+                {
+                    //(Window.Current.Content as Frame).Navigate(typeof(AboutPage));
+                    var settingsFlyout = new SettingsFlyout();
+                    settingsFlyout.Content = new About();
+                    settingsFlyout.HeaderText = "Об авторе";
+
+                    settingsFlyout.IsOpen = true;
+                });
+                args.Request.ApplicationCommands.Add(viewAboutPage);
+
+                var privacypolicy = new SettingsCommand("", "Политика конфиденциальности", cmd =>
+                {
+                    var settingsFlyout = new SettingsFlyout();
+                    settingsFlyout.Content = new Privacy();
+                    settingsFlyout.HeaderText = "Политика конфиденциальности";
+
+                    settingsFlyout.IsOpen = true;
+                });
+                args.Request.ApplicationCommands.Add(privacypolicy);
+
+            }
+            catch { };
         }
 
         /// <summary>

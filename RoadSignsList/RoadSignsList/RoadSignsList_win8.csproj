@@ -12,7 +12,9 @@
     <DefaultLanguage>ru-RU</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>RoadSignsList_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>RoadSignsList_win8_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>7DA8811AF23D7658F7101595E1B390CD6F3A91E1</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -126,6 +128,9 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="SearchResultsPage.xaml.cs">
+      <DependentUpon>SearchResultsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
@@ -136,6 +141,7 @@
     <None Include="Common\ReadMe.txt" />
     <None Include="packages.config" />
     <None Include="RoadSignsList_TemporaryKey.pfx" />
+    <None Include="RoadSignsList_win8_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
@@ -146,6 +152,7 @@
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
     <Content Include="MVVMLight.Nuget.Readme.txt" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -175,6 +182,10 @@
     <Page Include="ItemDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SearchResultsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
