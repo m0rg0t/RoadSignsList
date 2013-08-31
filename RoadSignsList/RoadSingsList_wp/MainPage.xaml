@@ -43,7 +43,7 @@
         <controls:Panorama Name="MainPanorama">
             <controls:Panorama.Title>
                 <Border Margin="10,90,0,0">
-                    <TextBlock Text="Цены на общественный транспорт Москвы" FontSize="80"/>
+                    <TextBlock Text="Справочник дорожных знаков" FontSize="80"/>
                 </Border>
             </controls:Panorama.Title>
 
@@ -57,7 +57,7 @@
                 <!--Double line list with text wrapping-->
                 <Grid Margin="10,-10,10,0">
                     <telerikPrimitives:RadWrapPanel x:Name="MenuPanel">
-                        <telerikPrimitives:RadHubTile Title="Цены" 
+                        <telerikPrimitives:RadHubTile Title="Знаки" 
                                                       ImageSource="Assets/prices_icon.png" Name="PricesTile" 
                                                       Width="352" Tap="PricesTile_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Поиск" Name="SearchTile" 
@@ -73,7 +73,7 @@
             <controls:PanoramaItem>
                 <controls:PanoramaItem.Header>
                     <Border  Margin="-12,0,0,0">
-                        <TextBlock Text="Цены" FontSize="50" Margin="15,-15,0,0"/>
+                        <TextBlock Text="Знаки" FontSize="50" Margin="15,-15,0,0"/>
                     </Border>
                 </controls:PanoramaItem.Header>
                 <!--Double line list with image placeholder and text wrapping-->
@@ -85,11 +85,17 @@
                      EmptyContent="Нет данных">
                     <telerikData:RadJumpList.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,5,0,0">
+                            <Grid Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Image}"/>
+                            <StackPanel Grid.Column="1">
                                 <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
-                                <TextBlock Text="{Binding Price}" TextWrapping="Wrap" FontSize="36" />
                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" Margin="12,0,12,5"/>
                             </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </telerikData:RadJumpList.ItemTemplate>
                 </telerikData:RadJumpList>
@@ -114,7 +120,6 @@
                         <DataTemplate>
                             <StackPanel Margin="0,5,0,0">
                                 <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
-                                <TextBlock Text="{Binding Price}" TextWrapping="Wrap" FontSize="36" />
                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" Margin="12,0,12,5"/>
                             </StackPanel>
                         </DataTemplate>

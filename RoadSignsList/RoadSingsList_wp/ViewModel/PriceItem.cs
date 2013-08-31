@@ -39,16 +39,16 @@ namespace RoadSingsList_wp.ViewModel
         }
         
 
-        private string _price;
+        private string _image;
         /// <summary>
         /// Цена билета
         /// </summary>
-        public string Price
+        public string Image
         {
-            get { return _price; }
+            get { return _image; }
             set { 
-                _price = value;
-                RaisePropertyChanged("Price");
+                _image = value;
+                RaisePropertyChanged("Image");
             }
         }
 

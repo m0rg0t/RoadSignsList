@@ -24,7 +24,7 @@ namespace RoadSingsList_wp
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
-        public const string TOKEN = "8a8e904ef86211e28889416c74617269";
+        public const string TOKEN = "9a3591aa0e3811e3a67f416c74617269";
 
         /// <summary>
         /// Constructor for the Application object.

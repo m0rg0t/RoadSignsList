@@ -93,7 +93,6 @@ namespace RoadSingsList_wp.ViewModel
 
                 var items = from item in Items
                             where item.Title.ToLower().Contains(_searchQuery.ToLower()) ||
-                                item.Price.ToLower().Contains(_searchQuery.ToLower()) ||
                                 item.Description.ToLower().Contains(_searchQuery.ToLower())
                             select item;
                 ResultItems = new ObservableCollection<SignItem>();
@@ -110,7 +109,7 @@ namespace RoadSingsList_wp.ViewModel
         public async Task<bool> LoadData()
         {
             Loading = true;
-            var responseText = await MakeWebRequest("http://api.pub.emp.msk.ru:8081/json/v10.0/transport/tickets/getallprices?token=" + App.TOKEN + "&query=test"); //" + App.TOKEN);
+            var responseText = await MakeWebRequest("http://api.pub.emp.msk.ru:8081/json/v10.0/transport/pdd/getallsigns?token=" + App.TOKEN + ""); //" + App.TOKEN);
             try
             {
                 JObject o = JObject.Parse(responseText.ToString());
@@ -119,10 +118,8 @@ namespace RoadSingsList_wp.ViewModel
                 int count = 1;
                 foreach (var item in o["result"])
                 {
-                    string shorttitle = item["name"].ToString();
-                    var title_split = shorttitle.Split('-');
-                    shorttitle = title_split[0].Trim();
-                    shorttitle = TruncateLongString(shorttitle, 36);
+                    string shorttitle = item["name"].ToString().Trim();
+                    //shorttitle = TruncateLongString(shorttitle, 36);
 
                     foreach (var ticket in item["objects"])
                     {
@@ -131,9 +128,9 @@ namespace RoadSingsList_wp.ViewModel
                             SignItem price = new SignItem();
                             price.ShortGroupName = shorttitle;
                             price.GroupName = item["name"].ToString();
-                            price.Title = ticket["ticket_name"].ToString();
+                            price.Title = ticket["part_name"].ToString();
                             price.Description = item["name"].ToString();
-                            price.Price = ticket["ticket_price"].ToString();
+                            price.Image = ticket["signs_src"].ToString();
 
                             Items.Add(price);
                         }
