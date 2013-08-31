@@ -8,53 +8,120 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikCore="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
+    shell:SystemTray.IsVisible="{Binding Loading}"
+    shell:SystemTray.Opacity="0"
+    shell:SystemTray.BackgroundColor="White"
+    shell:SystemTray.ForegroundColor="Black"
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Mode="Minimized">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="RateAppMenuItem" 
+                                              Text="Оценить приложение" Click="RateAppMenuItem_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="PrivacyMenuItem" 
+                                              Text="Политика конфиденциальности" Click="PrivacyMenuItem_Click"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="true" IsVisible="{Binding Loading}" Text="Загрузка" />
+    </shell:SystemTray.ProgressIndicator>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
  
         <!--Panorama control-->
-        <controls:Panorama Title="Справочник дорожных знаков">
- 
+        <controls:Panorama Name="MainPanorama">
+            <controls:Panorama.Title>
+                <Border Margin="10,90,0,0">
+                    <TextBlock Text="Цены на общественный транспорт Москвы" FontSize="80"/>
+                </Border>
+            </controls:Panorama.Title>
+
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="Меню">
+            <controls:PanoramaItem>
+                <controls:PanoramaItem.Header>
+                    <Border  Margin="-12,0,0,0">
+                        <TextBlock Text="Меню" FontSize="50" Margin="15,-15,0,0"/>
+                    </Border>
+                </controls:PanoramaItem.Header>
                 <!--Double line list with text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Grid Margin="10,-10,10,0">
+                    <telerikPrimitives:RadWrapPanel x:Name="MenuPanel">
+                        <telerikPrimitives:RadHubTile Title="Цены" 
+                                                      ImageSource="Assets/prices_icon.png" Name="PricesTile" 
+                                                      Width="352" Tap="PricesTile_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="Поиск" Name="SearchTile" 
+                                                      ImageSource="Assets/search2.png" Tap="SearchTile_Tap"/>
+                        <telerikPrimitives:RadHubTile Title="О программе"                                                      
+                                                      Name="AboutTile" ImageSource="Assets/help2.png" Tap="AboutTile_Tap"/>
+                    </telerikPrimitives:RadWrapPanel>
+                </Grid>
             </controls:PanoramaItem>
  
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="second item">
+            <controls:PanoramaItem>
+                <controls:PanoramaItem.Header>
+                    <Border  Margin="-12,0,0,0">
+                        <TextBlock Text="Цены" FontSize="50" Margin="15,-15,0,0"/>
+                    </Border>
+                </controls:PanoramaItem.Header>
                 <!--Double line list with image placeholder and text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <ListBox.ItemTemplate>
+                <telerikData:RadJumpList HorizontalAlignment="Left" 
+                     Margin="0,-10,0,0" Name="ItemsList" 
+                     VerticalAlignment="Top" 
+                     ItemsSource="{Binding Items}"
+                     DataContext="{Binding Main, Source={StaticResource Locator}}" 
+                     EmptyContent="Нет данных">
+                    <telerikData:RadJumpList.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <!--Replace rectangle with image-->
-                                <Rectangle Height="100" Width="100" Fill="#FFE5001b" Margin="12,0,9,0"/>
-                                <StackPanel Width="311">                                    
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
+                            <StackPanel Margin="0,5,0,0">
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Price}" TextWrapping="Wrap" FontSize="36" />
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" Margin="12,0,12,5"/>
                             </StackPanel>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </telerikData:RadJumpList.ItemTemplate>
+                </telerikData:RadJumpList>
+
             </controls:PanoramaItem>
+
+
+            <controls:PanoramaItem>
+                <controls:PanoramaItem.Header>
+                    <Border  Margin="-12,0,0,0">
+                        <TextBlock Text="Результаты поиска" FontSize="50" Margin="15,-15,0,0"/>
+                    </Border>
+                </controls:PanoramaItem.Header>
+                <!--Double line list with image placeholder and text wrapping-->
+                <telerikData:RadJumpList HorizontalAlignment="Left" 
+                     Margin="0,-10,0,0" Name="SearchItemsList" 
+                     VerticalAlignment="Top" 
+                     ItemsSource="{Binding ResultItems}"
+                     DataContext="{Binding Main, Source={StaticResource Locator}}" 
+                     EmptyContent="Нет данных">
+                    <telerikData:RadJumpList.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,5,0,0">
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Price}" TextWrapping="Wrap" FontSize="36" />
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" Margin="12,0,12,5"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerikData:RadJumpList.ItemTemplate>
+                </telerikData:RadJumpList>
+            </controls:PanoramaItem>
+
         </controls:Panorama>
     </Grid>
 </phone:PhoneApplicationPage>
