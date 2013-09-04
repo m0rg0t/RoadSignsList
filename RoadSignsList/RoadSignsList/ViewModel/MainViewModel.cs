@@ -30,5 +30,19 @@ namespace RoadSignsList.ViewModel
             ////    // Code runs "for real"
             ////}
         }
+
+        private bool _loading = false;
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Loading
+        {
+            get { return _loading; }
+            set { 
+                _loading = value;
+                RaisePropertyChanged("Loading");
+            }
+        }
+        
     }
 }

@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using RoadSignsList.ViewModel;
 
 // Модель данных, определяемая этим файлом, служит типичным примером строго типизированной
 // модели, которая поддерживает уведомление при добавлении, удалении или изменении членов. Выбранные
@@ -289,7 +290,7 @@ namespace RoadSignsList.Data
 
         public async void LoadSignsData()
         {
-
+            ViewModelLocator.MainStatic.Loading = true;
             var responseText = await MakeWebRequest("http://api.pub.emp.msk.ru:8081/json/v10.0/transport/pdd/getallsigns?token=" + App.TOKEN + "&query=test"); //" + App.TOKEN);
             try
             {
@@ -337,9 +338,11 @@ namespace RoadSignsList.Data
 
                     this.AllGroups.Add(group1);
                 }
+                ViewModelLocator.MainStatic.Loading = false;
             }
             catch
             {
+                ViewModelLocator.MainStatic.Loading = false;
             };
         }
 
