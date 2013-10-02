@@ -12,11 +12,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using ButtonLibrary;
 
 namespace RoadSingsList_wp
 {
     public partial class App : Application
     {
+
+        public static PizzaButtonControl button = new PizzaButtonControl();
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.

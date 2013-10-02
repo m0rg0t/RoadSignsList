@@ -130,7 +130,7 @@ namespace RoadSingsList_wp.ViewModel
                             price.GroupName = item["name"].ToString();
                             price.Title = ticket["part_name"].ToString();
                             price.Description = item["name"].ToString();
-                            price.Image = ticket["signs_src"].ToString();
+                            price.Image = ticket["signs_src"].ToString().Replace("http://t1.x-ix.ru/media/rules/images/signs/", "/Assets/signs/");
 
                             Items.Add(price);
                         }

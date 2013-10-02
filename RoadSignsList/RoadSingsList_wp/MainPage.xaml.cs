@@ -32,6 +32,9 @@ namespace RoadSingsList_wp
 
             this.SearchItemsList.GroupDescriptors.Add(GroupedBadgesList);
             this.SearchItemsList.SortDescriptors.Add(Sort);
+
+            App.button.IsAppBarEnabled = true;
+            App.button.Open();
         }
 
         public GenericGroupDescriptor<SignItem, string> GroupedBadgesList = new GenericGroupDescriptor<SignItem, string>(item => item.GroupName);

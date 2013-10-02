@@ -321,7 +321,7 @@ namespace RoadSignsList.Data
                             group1.Items.Add(new SampleDataItem("Group-" + count.ToString() + "-Item-" + sign_count.ToString(),
                             sign["part_name"].ToString(),
                             "",
-                            sign["signs_src"].ToString(),
+                            sign["signs_src"].ToString().Replace("http://t1.x-ix.ru/media/rules/images/signs/", "/Assets/signs/"),
                             item["name"].ToString(),
                             "",
                             group1));
