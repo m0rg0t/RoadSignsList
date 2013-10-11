@@ -7,6 +7,7 @@
     xmlns:local="using:RoadSignsList"
     xmlns:data="using:RoadSignsList.Data"
     xmlns:common="using:RoadSignsList.Common"
+    xmlns:adduplex="using:AdDuplex.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -54,6 +55,16 @@
                     <Setter Property="Margin" Value="52,0,0,10"/>
                 </Style>
             </GridView.ItemContainerStyle>
+
+            <GridView.Header>
+                <StackPanel Width="160" Margin="60,0,0,0" VerticalAlignment="Top">
+                    <adduplex:AdControl x:Name="adDuplexAd"
+                    AppId="ea0fbf0e-af8f-4767-a23e-26134916c43e" 
+                    Size="160x600"/>
+
+                </StackPanel>
+            </GridView.Header>
+
         </GridView>
 
         <!-- Список с вертикальной прокруткой используется только в прикрепленном представлении -->

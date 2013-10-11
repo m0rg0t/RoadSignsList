@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using RoadSignsList.ViewModel;
+using Windows.System.Profile;
 
 // Модель данных, определяемая этим файлом, служит типичным примером строго типизированной
 // модели, которая поддерживает уведомление при добавлении, удалении или изменении членов. Выбранные
@@ -288,9 +289,55 @@ namespace RoadSignsList.Data
             }
         }
 
+        private string GetHardwareId()
+        {
+            var token = HardwareIdentification.GetPackageSpecificToken(null);
+            var hardwareId = token.Id;
+            var dataReader = Windows.Storage.Streams.DataReader.FromBuffer(hardwareId);
+
+            byte[] bytes = new byte[hardwareId.Length];
+            dataReader.ReadBytes(bytes);
+
+            return BitConverter.ToString(bytes);
+        }
+
+        public async Task<bool> SendStatistics()
+        {
+            Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            string uuid1 = "";
+            try
+            {
+                uuid1 = localSettings.Values["deviceId"].ToString();
+            }
+            catch { };
+            if (uuid1!="")
+            {
+                try
+                {
+                    var responseText = await MakeWebRequest("http://api.pub.emp.msk.ru:8081/json/v10.0/auth/device/upd?token=" + App.TOKEN + "&device_id=" + uuid1);
+                    JObject o = JObject.Parse(responseText);
+                }
+                catch { };
+            }
+            else
+            {
+                try
+                {
+                    string hardId = GetHardwareId();
+                    var responseText = await MakeWebRequest("http://api.pub.emp.msk.ru:8081/json/v10.0/auth/device/reg?token=" + App.TOKEN);
+                    JObject o = JObject.Parse(responseText);
+                    string uuid = o["result"][0]["mobile_app_key_uuid"].ToString();
+                    localSettings.Values["deviceId"] = uuid;
+                }
+                catch { };
+            };            
+            return true;
+        }
+
         public async void LoadSignsData()
         {
             ViewModelLocator.MainStatic.Loading = true;
+            await SendStatistics();
             var responseText = await MakeWebRequest("http://api.pub.emp.msk.ru:8081/json/v10.0/transport/pdd/getallsigns?token=" + App.TOKEN + "&query=test"); //" + App.TOKEN);
             try
             {
