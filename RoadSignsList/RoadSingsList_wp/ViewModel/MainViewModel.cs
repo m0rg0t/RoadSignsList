@@ -58,7 +58,7 @@ namespace RoadSingsList_wp.ViewModel
 
         private ObservableCollection<SignItem> _items = new ObservableCollection<SignItem>();
         /// <summary>
-        /// Вcе цены
+        /// Г‚cГҐ Г¶ГҐГ­Г»
         /// </summary>
         public ObservableCollection<SignItem> Items
         {
@@ -71,7 +71,7 @@ namespace RoadSingsList_wp.ViewModel
 
         private ObservableCollection<SignItem> _resultItems = new ObservableCollection<SignItem>();
         /// <summary>
-        /// Результаты поиска
+        /// ГђГҐГ§ГіГ«ГјГІГ ГІГ» ГЇГ®ГЁГ±ГЄГ 
         /// </summary>
         public ObservableCollection<SignItem> ResultItems
         {
@@ -89,11 +89,11 @@ namespace RoadSingsList_wp.ViewModel
         {
             get { return _searchQuery; }
             set { 
-                _searchQuery = value;
+                _searchQuery = value ?? string.Empty;
 
                 var items = from item in Items
-                            where item.Title.ToLower().Contains(_searchQuery.ToLower()) ||
-                                item.Description.ToLower().Contains(_searchQuery.ToLower())
+                            where (item.Title ?? string.Empty).IndexOf(_searchQuery, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                (item.Description ?? string.Empty).IndexOf(_searchQuery, StringComparison.OrdinalIgnoreCase) >= 0
                             select item;
                 ResultItems = new ObservableCollection<SignItem>();
                 foreach (var item in items)
